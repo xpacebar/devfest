@@ -1,0 +1,41 @@
+{% extends "user/home_layout.html" %}
+
+{% block customcss %}
+style="background-color:white;"
+{% endblock customcss %}
+
+{% block content %}
+<div class="content">
+  {% set m = get_flashed_messages(with_categories=True) %}
+  {% if m %}
+    {% for cat,msg in m %}
+      {% if cat == "error" %}
+        <div class="alert alert-danger noround">
+          {{ msg }}
+        </div>
+      {% else %}
+        <div class="alert alert-info noround">
+          {{ msg }}
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  <h3>Welcome {{ deets.user_fname|title }}!</h3>
+  <h4>Payment Conformation Page</h4>
+  <p>You are about to donate with the following details, please click ob the Confirm Button</p>
+  <p>Please take note of the reference number, you will need to quote it in any conversation with us as per this donation</p>
+  <p>Name : {{donation_deets.donate_donor}}</p>
+  <p>Amount : N{{donation_deets.donate_amt}}</p>
+  <p>Reference Number : {{donation_deets.donate_ref}}</p>
+  <form action="/topaystack" method="post">
+    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+    <button class="btn btn-info">Confirm Donation</button>
+  </form>
+  
+
+</div>
+
+{% endblock content %}
+
+{% block breakout %} {% endblock breakout %}
+{% block conversation %} {% endblock conversation %}

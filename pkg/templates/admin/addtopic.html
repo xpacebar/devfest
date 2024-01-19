@@ -1,0 +1,57 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block admincontent %}
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Add Topics</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">Dashboard</li>
+            <li class="breadcrumb-item active"><a href="breakout.html">All Topic</a></li>
+            <li class="breadcrumb-item active">Add Topic</li>
+    </ol>
+    <div class="row">
+        <div class="col">
+                              
+         <form action="" method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            {{ bform.title.label(class_="form-label") }}  
+            {{ bform.title(class_="form-control") }}
+            <span>{{ bform.title.errors }}</span>
+          </div>
+          <div class="mb-3">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label for="level" class="form-label">Level</label>
+           <select name="level" id="level" class="form-control">
+            <option value="">Select One</option>
+            {% for d in devs %}
+            <option value="{{ d.level_id }}" selected>{{ d.level_name }}</option>
+            {% endfor %}
+           </select>
+          </div>
+           
+          <fieldset class="mb-3">
+            <legend>Status</legend>
+            <div class="form-check">
+              <input type="radio" name="status" class="form-check-input" id="exampleRadio1" value="1">
+              <label class="form-check-label" for="exampleRadio1">Publish</label>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="radio" name="status" class="form-check-input" id="exampleRadio2" value="0">
+              <label class="form-check-label" for="exampleRadio2">Do Not Publish</label>
+            </div>
+          </fieldset>
+          <div class="mb-3">
+            {{ bform.image.label(class_="form-label") }}
+            {{ bform.image(class_="form-control") }}
+            <span>{{ bform.image.errors }}</span>
+          </div>
+          <div class="mb-3">
+            {{ bform.submit(class_="btn btn-primary") }}
+          </div>
+        </form>
+
+
+            </div>
+        </div>
+        
+    </div>
+{% endblock admincontent %}
